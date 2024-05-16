@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange Rate Chart</title>
+    <!-- Include Chart.js with date adapter -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <link rel="stylesheet" href="{% static 'css/chart.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="chart-container">
+        <canvas id="rateChart"></canvas>
+    </div>
+    <form id="currency-form" action="{% url 'rate_chart' %}" method="get">
+        <label for="currency">Select Currency:</label>
+        <select name="currency" id="currency-select">
+            {% for currency in currencies %}
+                <option value="{{ currency }}"
+                        {% if currency == selected_currency %}selected{% endif %}>{{ currency }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" id="show-chart-btn">Show Chart</button>
+    </form>
+</div>
+<script>
+    const dates = {{ dates|safe }};
+    const rates = {{ rates|safe }};
+    const selected_currency = "{{ selected_currency }}";
+</script>
+<script src="{% static 'js/chart.js' %}"></script>
+</body>
+</html>
