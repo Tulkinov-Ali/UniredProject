@@ -51,6 +51,7 @@ def exchange(amount, code) -> Result:
         })
     return Success(results)
 
+
 # This view function serves as an endpoint for JSON-RPC requests.
 @csrf_exempt
 def jsonrpc_view(request):
